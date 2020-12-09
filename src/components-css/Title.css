@@ -1,9 +1,10 @@
 .Title {
     box-sizing: border-box;
-    width: 100%;
+    width: 95%;
     /*display: flex;*/
     justify-content: center;
-    padding: 1em;
+    padding: 3em;
+    padding-right: 1px;
     margin-bottom: 2em;
     background-color: rgb(255, 213, 78);
     color: #fff;
