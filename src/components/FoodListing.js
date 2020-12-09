@@ -1,34 +1,71 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ReactPlayer from "react-player";
-import { Card, CardMedia, CardDeck} from 'react-bootstrap';
+import { Card, CardDeck} from 'react-bootstrap';
+import YouTube from 'react-youtube';
 
 import '../components-css/FoodListing.css';
 
 
 
-function FoodListing() {
+function FoodListing(props) {
 
   console.log('In FoodListing Method');
 
   const [dishes, setDishes] = useState({
-    receipes: []
-});
+    receipes: []});
+
+    const [filter, setFilter] = useState({
+      receipes: []});
+
+console.log('Request Options : ', JSON.stringify(props));
+
+//const filterCriteria = props.filter.Vegeterian==='ignore'?{}:props.filter;
+
+let filterCriteria = {};
+var allPropertyNames = Object.keys(props.filter);
+for (var j=0; j<allPropertyNames.length; j++) {
+    var name = allPropertyNames[j];
+    var value = props.filter[name];
+
+    if (value === 'ignore') {
+
+      continue;
+    }
+
+    filterCriteria[name]=value;
+
+}
+
+console.log(' Filter Criteria : ', filterCriteria);
+
  
   //Call the use effect hook
   useEffect(() => {
 
-    console.log('In UseEffect Method');
+    console.log('===>> In UseEffect Method');
 
     const apiUrl = 'http://localhost:5000/dishes/';
-    fetch(apiUrl)
+
+    let jsonString = JSON.stringify({filter: {filterCriteria}});
+
+    console.log('Parameters to be Passed : ', jsonString);
+
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonString
+    };
+
+    
+  fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
         console.log ('Data  : ' + data.receipes);
         setDishes({receipes : data.receipes});
         });
-    },[]);
+    },[filter, props]);
   
     console.log ('Receipes Length : ' + dishes.receipes);
    
@@ -39,24 +76,27 @@ function FoodListing() {
 
     try {
 
-      return(<CardDeck className="row" style={{display: 'flex', flexDirection: 'row'}}>
+      return(<CardDeck className="row" style={{display: 'flex', flexDirection: 'row', padding:'10px'}}>
       {dishes.receipes.map((receipe) => {
-                  console.log('URL : ' + receipe.videoLink);
+
+                  //16:9 width:height ratio
+                  const opts = {
+                    height: 9*17+"",
+                    width: 16*17+"",
+                    playerVars: {
+                      // https://developers.google.com/youtube/player_parameters
+                      autoplay: 0,
+                    },
+                  };
 
         return (
 
-       <div key={receipe._id} className="col-sm-12 col-md-4 col-lg-3">
+       <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3" style={{paddingTop:'10px', paddingBottom:'10px'}}>
 
-        <Card style={{ width: '18rem'}}>
-        <CardMedia 
-  component="video"
-  height="140"
-  image={receipe.videoLink}
-  title="Contemplative Reptile" 
-/>
-
-      
-        
+        <Card bg="success" text="white"  style={{ width: '18rem'}} class="mx-auto">
+        <YouTube opts={opts} videoId={receipe.videoLink}
+        controls/>
+ 
         <Card.Body>
           <Card.Title>{receipe.Name}</Card.Title>
           <Card.Text>
