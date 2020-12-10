@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {vegFilterSelectCustomStyles} from '../components-constants/React-VegNonVeg-Select';
 import {foodTypeSelectCustomStyles} from '../components-constants/React-FoodType-Select';
 import {regionSelectCustomStyles} from '../components-constants/React-Region-Select';
@@ -7,30 +7,69 @@ import {regionSelectCustomStyles} from '../components-constants/React-Region-Sel
 import '../components-css/SearchBar.css';
 import { Row, Col, Container } from 'react-bootstrap';
 
+function addDataToFilter(filter, filterDataSet) {
 
+  console.log('Adding Data to Filter...');
+  filterDataSet.map((filterData)=>{
+
+      filter.push({value:filterData, label:filterData});
+    });
+
+    console.log('Dataset :: ', filter);
+}
+
+function loadFilterData(columnName, mainFilter) {
+
+  const apiUrl = 'http://localhost:5000/dishes/distinct';
+
+  let requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: {}
+  };
+
+  //Load Foor Type
+requestOptions.body = JSON.stringify({"filter":{"column":columnName}});
+
+console.log('Request Options : ', requestOptions);
+
+fetch(apiUrl, requestOptions)
+    .then((response) => response.json())
+    .then((filterOptions) => {
+
+        console.log ('Type Data  : ' + JSON.stringify(filterOptions));
+        addDataToFilter (mainFilter, filterOptions.column_vals);
+      });
+}
 
 function SearchBar(props) {
 
 const [filter, setFilter] = useState({});
+const vegNonVegOptions = [
+  { value: 'ignore', label: 'Any Type' },
+  { value: true, label: 'Veg Only' },
+  { value: false, label: 'Non-Veg Only' },
+];
 
-  const vegNonVegOptions = [
-    { value: 'ignore', label: 'Any Type' },
-    { value: true, label: 'Veg Only' },
-    { value: false, label: 'Non-Veg Only' },
-  ];
+const foodTypeOptions = [
+  { value: 'ignore', label: 'Any' },
+];
 
-  const foodTypeOptions = [
-    { value: 'ignore', label: 'Any' },
-    { value: 'Breakfast', label: 'Breakfast' },
-    { value: 'Dessert', label: 'Dessert' },
-  ];
+const regionOptions = [
+  { value: 'ignore', label: 'All' },
+];
 
-  const regeionOptions = [
-    { value: 'ignore', label: 'All' },
-    { value: 'Uttarakhand', label: 'Uttarakhand' },
-    { value: 'Kumaon', label: 'Kumaon' },
-    { value: 'Punjab', label: 'Punjab' }
-  ];
+ //Call the use effect hook
+ useEffect(() => {
+
+  console.log('===>> Updating Distinct Values');
+
+  loadFilterData("Type", foodTypeOptions);
+  loadFilterData("Region", regionOptions);
+  
+  },[]);
+
+ 
 
   const rowStyle = {
                       marginTop: '-4px'
@@ -56,7 +95,7 @@ const [filter, setFilter] = useState({});
      </Col>
      <Col sm={12} md={4} lg={3} >
         <Select
-          options={regeionOptions}
+          options={regionOptions}
           styles={regionSelectCustomStyles}
           placeholder='Region of Interest'
           onChange= {selectedOption => {
