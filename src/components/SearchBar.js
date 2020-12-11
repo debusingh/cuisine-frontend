@@ -25,11 +25,11 @@ function loadFilterData(columnName, mainFilter) {
   let requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: {}
+    body: JSON.stringify({"filter":{"column":columnName}})
   };
 
   //Load Foor Type
-requestOptions.body = JSON.stringify({"filter":{"column":columnName}});
+//requestOptions.body = JSON.stringify({"filter":{"column":columnName}});
 
 return(
  fetch(apiUrl, requestOptions)
