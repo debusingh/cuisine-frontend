@@ -12,10 +12,10 @@ function addDataToFilter(filter, filterDataSet) {
   console.log('Adding Data to Filter...');
   filterDataSet.map((filterData)=>{
 
-      filter.push({value:filterData, label:filterData});
+      filter.push({"value":filterData, "label":filterData});
     });
 
-    console.log('Dataset :: ', filter);
+    return filter;
 }
 
 function loadFilterData(columnName, mainFilter) {
@@ -31,18 +31,29 @@ function loadFilterData(columnName, mainFilter) {
   //Load Foor Type
 requestOptions.body = JSON.stringify({"filter":{"column":columnName}});
 
-console.log('Request Options : ', requestOptions);
-
-fetch(apiUrl, requestOptions)
+return(
+ fetch(apiUrl, requestOptions)
     .then((response) => response.json())
     .then((filterOptions) => {
 
-        console.log ('Type Data  : ' + JSON.stringify(filterOptions));
-        addDataToFilter (mainFilter, filterOptions.column_vals);
-      });
+        return (addDataToFilter (mainFilter, filterOptions.column_vals));
+      })
+);
 }
 
 function SearchBar(props) {
+
+  
+  const foodTypeOptions = [
+    { value: 'ignore', label: 'Any' },
+  ];
+  
+  const regionOptions = [
+    { value: 'ignore', label: 'All' },
+  ];
+
+  const [foodTypeState, setFoodTypeState] = useState(foodTypeOptions);
+  const [regionState, setRegionState] = useState(regionOptions);
 
 const [filter, setFilter] = useState({});
 const vegNonVegOptions = [
@@ -51,21 +62,18 @@ const vegNonVegOptions = [
   { value: false, label: 'Non-Veg Only' },
 ];
 
-const foodTypeOptions = [
-  { value: 'ignore', label: 'Any' },
-];
-
-const regionOptions = [
-  { value: 'ignore', label: 'All' },
-];
 
  //Call the use effect hook
  useEffect(() => {
 
-  console.log('===>> Updating Distinct Values');
+  loadFilterData("Type", foodTypeOptions).then((foodType)=>setFoodTypeState(foodType));
+  loadFilterData("Region", regionOptions).then((regions)=>setRegionState(regions));
 
-  loadFilterData("Type", foodTypeOptions);
-  loadFilterData("Region", regionOptions);
+  //setFoodTypeState(loadFilterData("Type", foodTypeOptions));
+  //setRegionState(loadFilterData("Region", regionOptions));
+
+  console.log('===>> Updating Distinct Values', foodTypeOptions);
+
   
   },[]);
 
@@ -76,6 +84,9 @@ const regionOptions = [
                     };
   
     try {
+
+      console.log('Data For Type :: ', JSON.stringify(foodTypeState));
+
   return (
     <div className="flex-container" >
       <Container>
@@ -95,9 +106,10 @@ const regionOptions = [
      </Col>
      <Col sm={12} md={4} lg={3} >
         <Select
-          options={regionOptions}
+          options={regionState}
           styles={regionSelectCustomStyles}
           placeholder='Region of Interest'
+          isDisabled={regionState.length===0}
           onChange= {selectedOption => {
                                         let newFilter = {...filter};
                                         newFilter.Region=selectedOption.value;
@@ -108,8 +120,9 @@ const regionOptions = [
       </Col>
       <Col sm={12} md={4} lg={3} >
         <Select
-          options={foodTypeOptions}
-          styles={regionSelectCustomStyles}
+          options={foodTypeState}
+          styles={foodTypeSelectCustomStyles}
+          isDisabled={foodTypeState.length===0}
           placeholder='Meals or Non-Meals?'
           onChange= {selectedOption => {
                                         let newFilter = {...filter};
