@@ -1,5 +1,5 @@
 import '../components-css/Title.css'
-import LogoImage from '../logo-tc.png';
+import LogoImage from '../tc-bg.jpg';
 
 function Title() {
 

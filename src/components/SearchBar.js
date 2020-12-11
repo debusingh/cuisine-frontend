@@ -96,6 +96,7 @@ const vegNonVegOptions = [
           <Select
             options={vegNonVegOptions}
             styles={vegFilterSelectCustomStyles}
+            isSearchable={false}
             placeholder='Veg or Non-Veg?'
             onChange= {selectedOption => {
                                           let newFilter = {...filter};
@@ -111,6 +112,7 @@ const vegNonVegOptions = [
           styles={regionSelectCustomStyles}
           placeholder='Region of Interest'
           isDisabled={regionState.length===0}
+          isSearchable={false}
           onChange= {selectedOption => {
                                         let newFilter = {...filter};
                                         newFilter.Region=selectedOption.value;
@@ -125,6 +127,7 @@ const vegNonVegOptions = [
           styles={foodTypeSelectCustomStyles}
           isDisabled={foodTypeState.length===0}
           placeholder='Meals or Non-Meals?'
+          isSearchable={false}
           onChange= {selectedOption => {
                                         let newFilter = {...filter};
                                         newFilter.Type=selectedOption.value;
