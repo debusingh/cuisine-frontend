@@ -92,7 +92,7 @@ console.log(' Filter Criteria : ', filterCriteria);
 
         return (
 
-       <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-centered" style={{paddingTop:'10px', paddingBottom:'10px'}}>
+       <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 align-self-center" style={{paddingTop:'10px', paddingBottom:'10px'}}>
 
         <Card bg="success" text="white"  style={{ width: '18rem'}} class="mx-auto">
         <YouTube opts={opts} videoId={receipe.videoLink}
