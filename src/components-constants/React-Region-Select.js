@@ -18,6 +18,7 @@ export const regionSelectCustomStyles = {
       height: '30px',
       boxShadow: state.isFocused ? 'green' : null,
 
+
     }),
 
     valueContainer: (provided, state) => ({
