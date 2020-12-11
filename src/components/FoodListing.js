@@ -44,7 +44,8 @@ console.log(' Filter Criteria : ', filterCriteria);
 
     console.log('===>> In UseEffect Method');
 
-    const apiUrl = 'http://localhost:5000/dishes/';
+    //const apiUrl = 'http://localhost:5000/dishes/';
+    const apiUrl = '/dishes/';
 
     let jsonString = JSON.stringify({filter: {filterCriteria}});
 
