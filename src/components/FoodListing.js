@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardDeck} from 'react-bootstrap';
 import YouTube from 'react-youtube';
+import ReactPaginate from "react-paginate";
 
 import '../components-css/FoodListing.css';
-
 
 
 function FoodListing(props) {
@@ -14,7 +14,9 @@ function FoodListing(props) {
   const [dishes, setDishes] = useState({
     receipes: []});
 
-    const [filter, setFilter] = useState({
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const [filter, setFilter] = useState({
       receipes: []});
 
 console.log('Request Options : ', JSON.stringify(props));
@@ -36,16 +38,14 @@ for (var j=0; j<allPropertyNames.length; j++) {
 
 }
 
-console.log(' Filter Criteria : ', filterCriteria);
 
- 
-  //Call the use effect hook
+   //Call the use effect hook
   useEffect(() => {
 
     console.log('===>> In UseEffect Method');
 
-    //const apiUrl = 'http://localhost:5000/dishes/';
-    const apiUrl = '/dishes/';
+    const apiUrl = 'http://localhost:5000/dishes/';
+    //const apiUrl = '/dishes/';
 
     let jsonString = JSON.stringify({filter: {filterCriteria}});
 
@@ -65,20 +65,40 @@ console.log(' Filter Criteria : ', filterCriteria);
 
         console.log ('Data  : ' + data.receipes);
         setDishes({receipes : data.receipes});
+        setPageNumber(1);
         });
     },[filter, props]);
+
+    const PER_PAGE = 12;
+
+    const startDishNumber = (pageNumber-1)*PER_PAGE;
+    const lastDishNumber = (pageNumber)*PER_PAGE;
+
+    const dishesToDisplay = dishes.receipes.slice(startDishNumber, lastDishNumber);
+    const totalItemsCount = dishes.receipes.length;
+
+    const offset = pageNumber * PER_PAGE;
+    
+    const pageCount = Math.ceil(totalItemsCount / PER_PAGE);
+
+    const handlePageClick = ({ selected: selectedPage })=> {
+
+      console.log("==> Current Page: ", selectedPage);
+      setPageNumber(selectedPage+1);
+    };
   
     console.log ('Receipes Length : ' + dishes.receipes);
    
-    if (dishes.receipes.length == 0) {
+    if (dishesToDisplay.length == 0) {
 
       return <h1>No Cuisines yet Matching your Criteria.</h1>;
     }
 
     try {
 
-      return(<CardDeck className="row" style={{display: 'flex', flexDirection: 'row', padding:'10px'}}>
-      {dishes.receipes.map((receipe) => {
+      return(<div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+        <CardDeck className="row" style={{display: 'flex', flexDirection: 'row', padding:'10px'}}>
+      {dishesToDisplay.map((receipe) => {
 
                   //16:9 width:height ratio
                   const opts = {
@@ -105,11 +125,36 @@ console.log(' Filter Criteria : ', filterCriteria);
           </Card.Text>
         </Card.Body>
       </Card>
+
       </div>
         )
       }
       )
-    }</CardDeck>);
+    }
+    
+   
+    
+    </CardDeck>
+    
+    <div 
+    className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
+    style={{display: pageCount>1?'':'none'}}>
+    <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        marginPagesDisplayed={3}
+        selectedPage={pageNumber}
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination"}
+        previousLinkClassName={"pagination__link"}
+        nextLinkClassName={"pagination__link"}
+        disabledClassName={"pagination__link--disabled"}
+        activeClassName={"pagination__link--active"}/>
+          
+      </div>
+      </div>
+      );
 
  
             

@@ -20,8 +20,8 @@ function addDataToFilter(filter, filterDataSet) {
 
 function loadFilterData(columnName, mainFilter) {
 
-  //const apiUrl = 'http://localhost:5000/dishes/distinct';
-  const apiUrl = '/dishes/distinct';
+  const apiUrl = 'http://localhost:5000/dishes/distinct';
+  //const apiUrl = '/dishes/distinct';
 
   let requestOptions = {
     method: 'POST',
