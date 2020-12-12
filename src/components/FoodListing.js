@@ -44,8 +44,8 @@ for (var j=0; j<allPropertyNames.length; j++) {
 
     console.log('===>> In UseEffect Method');
 
-    const apiUrl = 'http://localhost:5000/dishes/';
-    //const apiUrl = '/dishes/';
+    //const apiUrl = 'http://localhost:5000/dishes/';
+    const apiUrl = '/dishes/';
 
     let jsonString = JSON.stringify({filter: {filterCriteria}});
 
