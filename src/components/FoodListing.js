@@ -21,8 +21,6 @@ function FoodListing(props) {
 
 console.log('Request Options : ', JSON.stringify(props));
 
-//const filterCriteria = props.filter.Vegeterian==='ignore'?{}:props.filter;
-
 let filterCriteria = {};
 var allPropertyNames = Object.keys(props.filter);
 for (var j=0; j<allPropertyNames.length; j++) {
@@ -42,10 +40,11 @@ for (var j=0; j<allPropertyNames.length; j++) {
    //Call the use effect hook
   useEffect(() => {
 
+    setPageNumber(1);
     console.log('===>> In UseEffect Method');
 
-    //const apiUrl = 'http://localhost:5000/dishes/';
-    const apiUrl = '/dishes/';
+    const apiUrl = 'http://localhost:5000/dishes/';
+    //const apiUrl = '/dishes/';
 
     let jsonString = JSON.stringify({filter: {filterCriteria}});
 
@@ -65,7 +64,6 @@ for (var j=0; j<allPropertyNames.length; j++) {
 
         console.log ('Data  : ' + data.receipes);
         setDishes({receipes : data.receipes});
-        setPageNumber(1);
         });
     },[filter, props]);
 

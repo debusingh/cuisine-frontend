@@ -9,3 +9,12 @@
     background-color: rgb(255, 213, 78);
     color: #fff;
   }
+
+  .jumbotron {
+    background-image: url("../tc-bg.jpg");
+    background-size: cover;
+  }
+
+  .nav-bar {
+    background-color: rgb(224, 247, 205);
+  }

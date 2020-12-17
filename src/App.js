@@ -1,34 +1,21 @@
 import React, { useState } from 'react';
-
-import { CardDeck } from 'react-bootstrap';
-import './App.css';
-import FoodListing from './components/FoodListing';
-//import Switch from './components/Switch'
-
+import { BrowserRouter, Redirect, Route, Link } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
 import Title from './components/Title';
-import SearchBar from './components/SearchBar';
-
+import AddCuisine from './components/AddCuisine'
+import Switch from 'react-bootstrap/esm/Switch';
 
 
 function App() {
 
-  const [filterCriteria, setFilterCriteria] = React.useState({});
-
-  var filterChangedCallback = (filterData) => {
-          
-    console.log('In Callback Method with data : ', filterData);
-    setFilterCriteria(filterData);
- };
-
-
   return (
-    <div className="App">
-      <Title/>
-
-      <SearchBar onFilterChanged={filterChangedCallback} />
-      <FoodListing filter={filterCriteria}/>
-    
-    </div>
+    <BrowserRouter>
+      <div >
+        <Title />
+          <Route path="/home" component={Dashboard} />
+          <Route exact path="/addCuisine" component={AddCuisine} />
+      </div>
+    </BrowserRouter>
   );
 }
 
