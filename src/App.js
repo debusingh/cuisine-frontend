@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <div >
         <Title />
-        
+        <Route path="/" component={Dashboard} />
         <Route path="/home" component={Dashboard} />
         <Route exact path="/addCuisine" component={AddCuisine} />
         <Footer />
