@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, CardDeck} from 'react-bootstrap';
+import { Card, CardDeck } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import ReactPaginate from "react-paginate";
 
@@ -12,18 +12,20 @@ function FoodListing(props) {
   console.log('In FoodListing Method');
 
   const [dishes, setDishes] = useState({
-    receipes: []});
+    receipes: []
+  });
 
   const [pageNumber, setPageNumber] = useState(1);
 
   const [filter, setFilter] = useState({
-      receipes: []});
+    receipes: []
+  });
 
-console.log('Request Options : ', JSON.stringify(props));
+  console.log('Request Options : ', JSON.stringify(props));
 
-let filterCriteria = {};
-var allPropertyNames = Object.keys(props.filter);
-for (var j=0; j<allPropertyNames.length; j++) {
+  let filterCriteria = {};
+  var allPropertyNames = Object.keys(props.filter);
+  for (var j = 0; j < allPropertyNames.length; j++) {
     var name = allPropertyNames[j];
     var value = props.filter[name];
 
@@ -32,21 +34,22 @@ for (var j=0; j<allPropertyNames.length; j++) {
       continue;
     }
 
-    filterCriteria[name]=value;
+    filterCriteria[name] = value;
 
-}
+  }
 
 
-   //Call the use effect hook
+  //Call the use effect hook
   useEffect(() => {
 
     setPageNumber(1);
-    console.log('===>> In UseEffect Method');
 
-    const apiUrl = 'http://localhost:5000/dishes/';
-    //const apiUrl = '/dishes/';
+    //const apiUrl = 'http://localhost:5000/dishes/';
+    const apiUrl = '/dishes/';
 
-    let jsonString = JSON.stringify({filter: {filterCriteria}});
+
+
+    let jsonString = JSON.stringify({ filter: { filterCriteria } });
 
     console.log('Parameters to be Passed : ', jsonString);
 
@@ -57,113 +60,113 @@ for (var j=0; j<allPropertyNames.length; j++) {
       body: jsonString
     };
 
-    
-  fetch(apiUrl, requestOptions)
+
+    fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
-        console.log ('Data  : ' + data.receipes);
-        setDishes({receipes : data.receipes});
-        });
-    },[filter, props]);
+        console.log('Data  : ' + data.receipes);
+        setDishes({ receipes: data.receipes });
+      });
+  }, [filter, props]);
 
-    const PER_PAGE = 12;
+  const PER_PAGE = 12;
 
-    const startDishNumber = (pageNumber-1)*PER_PAGE;
-    const lastDishNumber = (pageNumber)*PER_PAGE;
+  const startDishNumber = (pageNumber - 1) * PER_PAGE;
+  const lastDishNumber = (pageNumber) * PER_PAGE;
 
-    const dishesToDisplay = dishes.receipes.slice(startDishNumber, lastDishNumber);
-    const totalItemsCount = dishes.receipes.length;
+  const dishesToDisplay = dishes.receipes.slice(startDishNumber, lastDishNumber);
+  const totalItemsCount = dishes.receipes.length;
 
-    const offset = pageNumber * PER_PAGE;
-    
-    const pageCount = Math.ceil(totalItemsCount / PER_PAGE);
+  const offset = pageNumber * PER_PAGE;
 
-    const handlePageClick = ({ selected: selectedPage })=> {
+  const pageCount = Math.ceil(totalItemsCount / PER_PAGE);
 
-      console.log("==> Current Page: ", selectedPage);
-      setPageNumber(selectedPage+1);
-    };
-  
-    console.log ('Receipes Length : ' + dishes.receipes);
-   
-    if (dishesToDisplay.length == 0) {
+  const handlePageClick = ({ selected: selectedPage }) => {
 
-      return <h1>No Cuisines yet Matching your Criteria.</h1>;
-    }
+    console.log("==> Current Page: ", selectedPage);
+    setPageNumber(selectedPage + 1);
+  };
 
-    try {
+  console.log('Receipes Length : ' + dishes.receipes);
 
-      return(<div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-        <CardDeck className="row" style={{display: 'flex', flexDirection: 'row', padding:'10px'}}>
-      {dishesToDisplay.map((receipe) => {
+  if (dishesToDisplay.length == 0) {
 
-                  //16:9 width:height ratio
-                  const opts = {
-                    height: 9*17+"",
-                    width: 16*17+"",
-                    playerVars: {
-                      // https://developers.google.com/youtube/player_parameters
-                      autoplay: 0,
-                    },
-                  };
+    return <h1>No Cuisines yet Matching your Criteria.</h1>;
+  }
 
-        return (
+  try {
 
-       <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{paddingTop:'10px', paddingBottom:'10px'}}>
+    return (<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <CardDeck className="row" style={{ display: 'flex', flexDirection: 'row', padding: '10px' }}>
+        {dishesToDisplay.map((receipe) => {
 
-        <Card bg="success" text="white"  style={{ width: '18rem'}} class="mx-auto">
-        <YouTube opts={opts} videoId={receipe.videoLink}
-        controls/>
- 
-        <Card.Body>
-          <Card.Title>{receipe.Name}</Card.Title>
-          <Card.Text>
-            {receipe.Region}
-          </Card.Text>
-        </Card.Body>
-      </Card>
+          //16:9 width:height ratio
+          const opts = {
+            height: '100%',
+            width: '100%',
+            playerVars: {
+              // https://developers.google.com/youtube/player_parameters
+              autoplay: 0,
+            },
+          };
 
-      </div>
+          return (
+
+            <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+
+              <Card bg="success" text="white" style={{ width: '100%' }} class="mx-auto">
+                <YouTube opts={opts} videoId={receipe.videoLink}
+                  controls />
+
+                <Card.Body>
+                  <Card.Title>{receipe.Name}</Card.Title>
+                  <Card.Text>
+                    {receipe.Region}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+
+            </div>
+          )
+        }
         )
-      }
-      )
-    }
-    
-   
-    
-    </CardDeck>
-    
-    <div 
-    className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
-    style={{display: pageCount>1?'':'none'}}>
-    <ReactPaginate
-        previousLabel={"<"}
-        nextLabel={">"}
-        marginPagesDisplayed={3}
-        selectedPage={pageNumber}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}/>
-          
-      </div>
-      </div>
-      );
+        }
 
- 
-            
-      
+
+
+      </CardDeck>
+
+      <div
+        className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
+        style={{ display: pageCount > 1 ? '' : 'none' }}>
+        <ReactPaginate
+          previousLabel={"<"}
+          nextLabel={">"}
+          marginPagesDisplayed={3}
+          selectedPage={pageNumber}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"pagination__link"}
+          nextLinkClassName={"pagination__link"}
+          disabledClassName={"pagination__link--disabled"}
+          activeClassName={"pagination__link--active"} />
+
+      </div>
+    </div>
+    );
+
+
+
+
   } catch (error) {
 
     console.log(error);
 
     return (<h1>Error Occurred!!!</h1>)
   }
-    
+
 };
 
 export default FoodListing;

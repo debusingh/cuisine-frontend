@@ -20,8 +20,8 @@ function addDataToFilter(filter, filterDataSet) {
 
 function loadFilterData(columnName, mainFilter) {
 
-  const apiUrl = 'http://localhost:5000/dishes/distinct';
-  //const apiUrl = '/dishes/distinct';
+  //const apiUrl = 'http://localhost:5000/dishes/distinct';
+  const apiUrl = '/dishes/distinct';
 
   let requestOptions = {
     method: 'POST',
@@ -83,58 +83,58 @@ function SearchBar(props) {
     console.log('Data For Type :: ', JSON.stringify(foodTypeState));
 
     return (
-<Container fluid >  
-<Row style={{
-      width: "100%",
-      textAlign : "center",
-      paddingBottom:'10px'
-    }}>  
- <Col sm={12} md={4} lg={3} >
-              <Select
-                options={vegNonVegOptions}
-                styles={vegFilterSelectCustomStyles}
-                isSearchable={false}
-                placeholder='Veg or Non-Veg?'
-                onChange={selectedOption => {
-                  let newFilter = { ...filter };
-                  newFilter.Vegeterian = selectedOption.value;
-                  setFilter(newFilter);
-                  props.onFilterChanged(newFilter);
-                }
-                } />
-            </Col>
-            <Col sm={12} md={4} lg={3} >
-              <Select
-                options={regionState}
-                styles={regionSelectCustomStyles}
-                placeholder='Region of Interest'
-                isDisabled={regionState.length === 0}
-                isSearchable={false}
-                onChange={selectedOption => {
-                  let newFilter = { ...filter };
-                  newFilter.Region = selectedOption.value;
-                  setFilter(newFilter);
-                  props.onFilterChanged(newFilter);
-                }
-                } />
-            </Col>
-            <Col sm={12} md={4} lg={3} >
-              <Select
-                options={foodTypeState}
-                styles={foodTypeSelectCustomStyles}
-                isDisabled={foodTypeState.length === 0}
-                placeholder='Meals or Non-Meals?'
-                isSearchable={false}
-                onChange={selectedOption => {
-                  let newFilter = { ...filter };
-                  newFilter.Type = selectedOption.value;
-                  setFilter(newFilter);
-                  props.onFilterChanged(newFilter);
-                }
-                } />
-            </Col>
-            </Row>     
-            </Container>  
+      <Container fluid>
+        <Row style={{
+          width: "100%",
+          textAlign: "center",
+          paddingBottom: '10px'
+        }}>
+          <Col sm={12} md={4} lg={3} >
+            <Select
+              options={vegNonVegOptions}
+              styles={vegFilterSelectCustomStyles}
+              isSearchable={false}
+              placeholder='Veg or Non-Veg?'
+              onChange={selectedOption => {
+                let newFilter = { ...filter };
+                newFilter.Vegeterian = selectedOption.value;
+                setFilter(newFilter);
+                props.onFilterChanged(newFilter);
+              }
+              } />
+          </Col>
+          <Col sm={12} md={4} lg={3} >
+            <Select
+              options={regionState}
+              styles={regionSelectCustomStyles}
+              placeholder='Region of Interest'
+              isDisabled={regionState.length === 0}
+              isSearchable={false}
+              onChange={selectedOption => {
+                let newFilter = { ...filter };
+                newFilter.Region = selectedOption.value;
+                setFilter(newFilter);
+                props.onFilterChanged(newFilter);
+              }
+              } />
+          </Col>
+          <Col sm={12} md={4} lg={3} >
+            <Select
+              options={foodTypeState}
+              styles={foodTypeSelectCustomStyles}
+              isDisabled={foodTypeState.length === 0}
+              placeholder='Meals or Non-Meals?'
+              isSearchable={false}
+              onChange={selectedOption => {
+                let newFilter = { ...filter };
+                newFilter.Type = selectedOption.value;
+                setFilter(newFilter);
+                props.onFilterChanged(newFilter);
+              }
+              } />
+          </Col>
+        </Row>
+      </Container>
 
 
     );

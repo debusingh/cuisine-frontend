@@ -31,21 +31,21 @@ export default class Title extends React.Component {
 
     render() {
         return (<div style={{width:'100%'}}>
-            <Navbar  expand="lg" sticky="top" className="nav-bar" variant="light">
+            <Navbar  expand="lg" fixed="top" className="nav-bar" variant="light">
                     <NavbarBrand className="mr-auto" href="/home">
                         <img src={LogoImage} height="50" width="70"
                             alt="TheCuisine" />
                     </NavbarBrand>
-                    <Nav className="ml-auto" navbar>
+                    {/*<Nav className="ml-auto" navbar>
                         <NavLink className="nav-link " to="/home">
                             <span className="fa fa-home fa-lg"></span>Home
                                     </NavLink>
                         <NavLink className="nav-link" to="/addCuisine">
                             <span className="fa fa-edit fa-lg"></span>Add Cuisine
                                 </NavLink>
-                    </Nav>
+                    </Nav>*/}
                 </Navbar>
-            <Jumbotron style={{margin: '10px'}}>
+            <Jumbotron style={{marginTop: '75px'}}>
                     <div className="row row-header">
                         <div className="col-12 col-sm-6">
                             <h1 style={{ color: 'white' }}>THE Cuisine</h1>
