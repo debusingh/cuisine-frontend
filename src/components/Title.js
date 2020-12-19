@@ -46,7 +46,7 @@ export default class Title extends React.Component {
                     <img src={LogoImage} height="50" width="70"
                         alt="TheCuisine" />
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={this.toggle}/>
+                {/*<Navbar.Toggle aria-controls="basic-navbar-nav" onClick={this.toggle}/>
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto" navbar>
                     <NavLink className="nav-link " to="/home">
@@ -56,7 +56,7 @@ export default class Title extends React.Component {
                         <span className="fa fa-edit fa-lg"></span>Add Cuisine
                                 </NavLink>
                 </Nav>
-                </Navbar.Collapse>
+                </Navbar.Collapse>*/}
             </Navbar>
 
 
