@@ -47,7 +47,7 @@ export default class Title extends React.Component {
                         alt="TheCuisine" />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={this.toggle}/>
-                <Navbar.Collapse id="basic-navbar-nav" isOpen={this.state.isNavOpen}>
+                <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto" navbar>
                     <NavLink className="nav-link " to="/home">
                         <span className="fa fa-home fa-lg"></span>Home
