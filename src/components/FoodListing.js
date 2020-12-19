@@ -92,7 +92,7 @@ function FoodListing(props) {
 
   if (dishesToDisplay.length == 0) {
 
-    return <h1>No Cuisines yet Matching your Criteria.</h1>;
+    return <h1>No Cuisine found Matching your Criteria.</h1>;
   }
 
   try {
