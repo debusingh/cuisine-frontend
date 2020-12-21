@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import FacebookLogin from 'react-facebook-login';
 import Image from 'react-bootstrap/Image'
+import {commonConstants} from '../components-constants/React-Common-Constants';
 
 
 
@@ -48,12 +49,35 @@ export default class Title extends React.Component {
         console.log(response);
 
         this.setState({
-            loggedIn: true,
+            loggedIn: response.email.length > 0,
             eMail: response.email,
             picture: response.picture.data.url
-        }
+        });
 
-        )
+
+
+        let apiUrl = commonConstants.apiUrl + 'users/user/';
+
+        let jsonString = JSON.stringify({ 'user': { 'name': response.name, 'userMail': response.email } });
+
+        console.log('Parameters to be Passed : ', jsonString);
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonString
+        };
+
+
+        fetch(apiUrl, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+
+                console.log('Data  : ' + data.receipes);
+            });
+
+
+
     }
 
 
@@ -68,26 +92,26 @@ export default class Title extends React.Component {
         if (this.state.loggedIn) {
 
             headerContent = (
-                <div class="row" className="d-flex align-items-center" style={{height: '100%'}}>
+                <div class="row" className="d-flex align-items-center" style={{ height: '100%' }}>
                     <div class="col-xs-6 col-4" className="d-flex align-items-flex-end" >
                         <Image src={this.state.picture} thumbnail />
                     </div>
-                    <div class="col-xs-6 col-8"  style={{fontSize: '1em'}} className="d-flex align-items-flex-start"   >
+                    <div class="col-xs-6 col-8" style={{ fontSize: '1em' }} className="d-flex align-items-flex-start"   >
 
 
-                       {/* <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={this.toggle} />
+                        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={this.toggle} />
                         <Navbar.Collapse id="basic-navbar-nav">*/}
-                            <Nav className="mr-auto" navbar>
+                        <Nav className="mr-auto" navbar>
 
-                                {/*<NavLink className="nav-link row-12" to="/home">
+                            {/*<NavLink className="nav-link row-12" to="/home">
                                     <span className="fa fa-home fa-lg"></span>Home
                                 </NavLink>*/}
-                                <NavLink className="nav-link row-12" to="/addCuisine">
-                                    <span className="fa fa-edit fa-lg"></span>Add Cuisine
+                            <NavLink className="nav-link row-12" to="/addCuisine">
+                                <span className="fa fa-edit fa-lg"></span>Add Cuisine
                                 </NavLink>
-                                
-                            </Nav>
-                       {/* </Navbar.Collapse>*/}
+
+                        </Nav>
+                        {/* </Navbar.Collapse>*/}
                     </div>
 
                 </div >

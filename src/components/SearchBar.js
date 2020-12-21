@@ -6,6 +6,8 @@ import { regionSelectCustomStyles } from '../components-constants/React-Region-S
 
 import '../components-css/SearchBar.css';
 import { Row, Col, Container } from 'react-bootstrap';
+import {commonConstants} from '../components-constants/React-Common-Constants';
+
 
 function addDataToFilter(filter, filterDataSet) {
 
@@ -21,7 +23,7 @@ function addDataToFilter(filter, filterDataSet) {
 function loadFilterData(columnName, mainFilter) {
 
   //const apiUrl = 'http://localhost:5000/dishes/distinct';
-  const apiUrl = '/dishes/distinct';
+  const apiUrl = commonConstants.apiUrl + 'dishes/distinct'
 
   let requestOptions = {
     method: 'POST',
