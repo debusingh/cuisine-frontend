@@ -5,7 +5,7 @@ import YouTube from 'react-youtube';
 import ReactPaginate from "react-paginate";
 
 import '../components-css/FoodListing.css';
-import {commonConstants} from '../components-constants/React-Common-Constants';
+import { commonConstants } from '../components-constants/React-Common-Constants';
 
 
 function FoodListing(props) {
@@ -45,10 +45,7 @@ function FoodListing(props) {
 
     setPageNumber(1);
 
-    //const apiUrl = 'http://localhost:5000/dishes/';
-    const apiUrl = commonConstants.apiUrl +'dishes/';
-
-
+    const apiUrl = commonConstants.apiUrl + 'dishes/';
 
     let jsonString = JSON.stringify({ filter: { filterCriteria } });
 

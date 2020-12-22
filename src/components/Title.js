@@ -5,9 +5,9 @@ import '../components-css/Title.css'
 import LogoImage from '../logo-tc-jpg-sm.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLoginWithButton from 'react-facebook-login';
 import Image from 'react-bootstrap/Image'
-import {commonConstants} from '../components-constants/React-Common-Constants';
+import { commonConstants } from '../components-constants/React-Common-Constants';
 
 
 
@@ -53,6 +53,8 @@ export default class Title extends React.Component {
             eMail: response.email,
             picture: response.picture.data.url
         });
+
+        this.props.onUserLogin(response.email);
 
 
 
@@ -102,9 +104,9 @@ export default class Title extends React.Component {
                         <Navbar.Collapse id="basic-navbar-nav">*/}
                         <Nav className="mr-auto" navbar>
 
-                            {/*<NavLink className="nav-link row-12" to="/home">
-                                    <span className="fa fa-home fa-lg"></span>Home
-                                </NavLink>*/}
+                            <NavLink className="nav-link row-12" to="/home">
+                                <span className="fa fa-home fa-lg"></span>Home
+                                </NavLink>
                             <NavLink className="nav-link row-12" to="/addCuisine">
                                 <span className="fa fa-edit fa-lg"></span>Add Cuisine
                                 </NavLink>
@@ -120,7 +122,7 @@ export default class Title extends React.Component {
 
             headerContent = (
                 <div>
-                    <FacebookLogin
+                    <FacebookLoginWithButton
                         appId="712150759486492"
                         autoLoad
                         fields="name,email,picture"
@@ -135,7 +137,7 @@ export default class Title extends React.Component {
 
             (<div style={{ width: '100%' }}>
                 <Navbar collapseOnSelect expand="lg" fixed="top" className="nav-bar" variant="light" onBlur={this.hideNav}>
-                    <Navbar.Brand className="mr-auto" href="/home">
+                    <Navbar.Brand className="mr-auto">
                         <img src={LogoImage} height="50" width="70"
                             alt="TheCuisine" />
                     </Navbar.Brand>
