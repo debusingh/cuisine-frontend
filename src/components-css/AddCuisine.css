@@ -1,0 +1,18 @@
+
+.headerDiv .header{
+    background-image: url('../A_Typical_Indian_Thali.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: -1;
+    position: absolute;
+
+}
+
+.headerDiv{
+    position: relative;
+    z-index: 1;
+    height: 100%;
+
+}
