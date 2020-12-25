@@ -40,9 +40,9 @@ export default class Title extends React.Component {
                         <NavLink className="nav-link row-12" to="/home">
                             <span className="fa fa-home fa-lg"></span>Home
                                 </NavLink>
-                       {/*<NavLink className="nav-link row-12" to="/addCuisine">
+                       <NavLink className="nav-link row-12" to="/addCuisine">
                             <span className="fa fa-edit fa-lg"></span>Add Cuisine
-                    </NavLink>*/}
+                    </NavLink>
 
                     </Nav>
                     {/* </Navbar.Collapse>*/}
