@@ -23,13 +23,13 @@ export const commonConstants = {
         { label: 'Sweet', value: 'Sweet' },
         { label: 'Tea', value: 'Tea' }],
 
-        consoleLog : (message)=> 
-            {
-                if (process.env.NODE_ENV !== "development") {
-                     commonConstants.consoleLog = () => {};
-            } else {
+    consoleLog : (message)=> 
+        {
+            if (process.env.NODE_ENV !== "development") {
+                    commonConstants.consoleLog = () => {};
+        } else {
 
-                    console.log(message);
-            }
+                console.log(message);
         }
+    }
 }

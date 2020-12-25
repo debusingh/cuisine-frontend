@@ -53,7 +53,7 @@ export default class AddCuisineForm extends React.Component {
 
     let jsonString = JSON.stringify({ 'user': { 'name': response.name, 'userMail': response.email } });
 
-    consoleLog('Parameters to be Passed : ', jsonString);
+    commonConstants.consoleLog('Parameters to be Passed : ', jsonString);
 
     const requestOptions = {
       method: 'PUT',
@@ -66,7 +66,7 @@ export default class AddCuisineForm extends React.Component {
       .then((response) => response.json())
       .then((data) => {
 
-        consoleLog('Data  : ' + data.receipes);
+        commonConstants.consoleLog('Data  : ' + data.receipes);
       });
 
 
@@ -77,7 +77,7 @@ export default class AddCuisineForm extends React.Component {
     const fieldName = name;
     const fieldValue = value;
 
-    consoleLog('==> Name : ', name, "++ ==> Value : ", value);
+    commonConstants.consoleLog('==> Name : ', name, "++ ==> Value : ", value);
 
     this.setState(prevState => ({
       facebook: {
@@ -112,7 +112,7 @@ export default class AddCuisineForm extends React.Component {
 
       let jsonString = JSON.stringify({ 'tempData': this.state.userData.formData});
 
-      consoleLog('Parameters to be Passed : ', jsonString);
+      commonConstants.consoleLog('Parameters to be Passed : ', jsonString);
 
       const requestOptions = {
         method: 'PUT',
@@ -125,7 +125,7 @@ export default class AddCuisineForm extends React.Component {
         .then((response) => response.json())
         .then((data) => {
 
-          consoleLog('Data  : ' + data.receipes);
+          commonConstants.consoleLog('Data  : ' + data.receipes);
         });
 
       alert('Thankyou for Submitting. Lookout for this cuisine in Dashboard soon!!!');
@@ -142,7 +142,7 @@ export default class AddCuisineForm extends React.Component {
   render() {
 
     let dataContent = (<div></div>);
-    consoleLog('State=> ', this.state);
+    commonConstants.consoleLog('State=> ', this.state);
     if (!this.state.facebook.loggedIn) {
 
       dataContent = (
