@@ -4,6 +4,7 @@ import '../components-css/AddCuisine.css';
 import { Jumbotron, Button, Container, Form, FormControl, InputGroup, Row } from 'react-bootstrap';
 import { commonConstants } from '../components-constants/React-Common-Constants';
 import FacebookLoginWithButton from 'react-facebook-login';
+import SimpleReactValidator from 'simple-react-validator';
 
 
 export default class AddCuisineForm extends React.Component {
@@ -12,7 +13,10 @@ export default class AddCuisineForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.validator = new SimpleReactValidator();
+
     this.state = {
+      error: '',
       facebook: {
         loggedIn: false,
         eMail: '',
@@ -24,10 +28,6 @@ export default class AddCuisineForm extends React.Component {
       }
     };
   }
-
-
-
-
 
   responseFacebook = (response) => {
     console.log(response);
@@ -41,6 +41,7 @@ export default class AddCuisineForm extends React.Component {
       },
       userData: {
         formData: {
+          userMail: response.email
 
         }
       }
@@ -71,9 +72,12 @@ export default class AddCuisineForm extends React.Component {
 
   }
 
+  addValueToState = (name, value) => {
 
+    const fieldName = name;
+    const fieldValue = value;
 
-  handleChange = (e) => {
+    console.log('==> Name : ', name, "++ ==> Value : ", value);
 
     this.setState(prevState => ({
       facebook: {
@@ -82,17 +86,56 @@ export default class AddCuisineForm extends React.Component {
       userData: {
         formData: {                // specific object of food object
           ...prevState.userData.formData,   // copy all pizza key-value pairs
-          [e.target.name]: e.target.value.trim()
+          [fieldName]: fieldValue
         }        // update value of specific key
       }
     }
     ))
   }
 
+
+  handleChange = (e) => {
+
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+
+    this.addValueToState(fieldName, fieldValue.trim());
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state.userData.formData);
-    // ... submit to API or something
+
+    if (this.validator.allValid()) {
+
+
+      let apiUrl = commonConstants.apiUrl + 'dishes/';
+
+      let jsonString = JSON.stringify({ 'tempData': this.state.userData.formData});
+
+      console.log('Parameters to be Passed : ', jsonString);
+
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: jsonString
+      };
+
+
+      fetch(apiUrl, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+
+          console.log('Data  : ' + data.receipes);
+        });
+
+      alert('Thankyou for Submitting. Lookout for this cuisine in Dashboard soon!!!');
+      window.location='/home'; 
+    } else {
+      this.validator.showMessages();
+      // rerender to show messages for the first time
+      // you can use the autoForceUpdate option to do this automatically`
+      this.forceUpdate();
+    }
   };
 
 
@@ -128,6 +171,7 @@ export default class AddCuisineForm extends React.Component {
               </div>
               <div class='col-12' >
                 <input name='name' type='text' placeholder="Name of the Cuisine..." style={{ width: '100%' }} onChange={(event) => { this.handleChange(event) }} />
+                <span style={{ color: "red" }}>{this.validator.message('Name', this.state.userData.formData.name, 'required|alpha')}</span>
               </div>
             </Row>
             <Row style={{ paddingTop: '10px' }}>
@@ -138,6 +182,8 @@ export default class AddCuisineForm extends React.Component {
 
                 <input name='region' type='text' placeholder="Ex: Andhra Pradesh (State) or Bangalore (City), Vidharbha (Region)" style={{ width: '100%' }}
                   onChange={(event) => { this.handleChange(event) }} />
+                <span style={{ color: "red" }}>{this.validator.message('Region', this.state.userData.formData.region, 'required|alpha')}</span>
+
               </div>
             </Row>
             <Row style={{ paddingTop: '10px' }}>
@@ -150,7 +196,10 @@ export default class AddCuisineForm extends React.Component {
                   options={commonConstants.foodTypesOptions}
                   isSearchable={true}
                   placeholder='Main Course or Dessert or ...'
-                  onChange={(event) => { this.handleChange(event) }} />
+                  onChange={selectedOption => { this.addValueToState('type', selectedOption.value) }} />
+
+                <span style={{ color: "red" }}>{this.validator.message('Type of Cuisine', this.state.userData.formData.type, 'required|alpha')}</span>
+
               </div>
             </Row>
             <Row style={{ paddingTop: '10px' }}>
@@ -159,10 +208,14 @@ export default class AddCuisineForm extends React.Component {
               </div>
               <div class='col-12'>
                 <Select
+                  name='vegeterian'
                   options={commonConstants.vegNonVegOptions}
                   isSearchable={false}
                   placeholder='Veg or Non-Veg?'
-                  onChange={(event) => { this.handleChange(event) }} />
+                  onChange={selectedOption => { this.addValueToState('vegeterian', selectedOption.value) }} />
+
+                <span style={{ color: "red" }}>{this.validator.message('Veg/Non-Veg', this.state.userData.formData.vegeterian, 'required|alpha')}</span>
+
               </div>
             </Row>
             <Row style={{ paddingTop: '10px' }}>
@@ -172,11 +225,13 @@ export default class AddCuisineForm extends React.Component {
               <div class='col-12'>
                 <input name='videoLink' type='url' placeholder="Ex: https://www.youtube.com/watch?v=XXXXXXXX" style={{ width: '100%' }}
                   onChange={(event) => { this.handleChange(event) }} />
+
+                <span style={{ color: "red" }}>{this.validator.message('videoLink', this.state.userData.formData.videoLink, 'required|url')}</span>
               </div>
             </Row>
 
             <Row style={{ padding: '50px' }}>
-              <Button variant="outline-success" size="lg" block onClick={(event) => { this.handleSubmit(event) }} >
+              <Button variant="outline-success" size="lg" block onClick={(event) => { this.handleSubmit(event);}} >
                 Submit Your Cuisine  </Button>
             </Row>
           </Container>
