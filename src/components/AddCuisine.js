@@ -30,7 +30,7 @@ export default class AddCuisineForm extends React.Component {
   }
 
   responseFacebook = (response) => {
-    console.log(response);
+    commonConstants.consoleLog(response);
 
     this.setState(prevState => ({
       facebook: {
@@ -53,7 +53,7 @@ export default class AddCuisineForm extends React.Component {
 
     let jsonString = JSON.stringify({ 'user': { 'name': response.name, 'userMail': response.email } });
 
-    console.log('Parameters to be Passed : ', jsonString);
+    consoleLog('Parameters to be Passed : ', jsonString);
 
     const requestOptions = {
       method: 'PUT',
@@ -66,7 +66,7 @@ export default class AddCuisineForm extends React.Component {
       .then((response) => response.json())
       .then((data) => {
 
-        console.log('Data  : ' + data.receipes);
+        consoleLog('Data  : ' + data.receipes);
       });
 
 
@@ -77,7 +77,7 @@ export default class AddCuisineForm extends React.Component {
     const fieldName = name;
     const fieldValue = value;
 
-    console.log('==> Name : ', name, "++ ==> Value : ", value);
+    consoleLog('==> Name : ', name, "++ ==> Value : ", value);
 
     this.setState(prevState => ({
       facebook: {
@@ -112,7 +112,7 @@ export default class AddCuisineForm extends React.Component {
 
       let jsonString = JSON.stringify({ 'tempData': this.state.userData.formData});
 
-      console.log('Parameters to be Passed : ', jsonString);
+      consoleLog('Parameters to be Passed : ', jsonString);
 
       const requestOptions = {
         method: 'PUT',
@@ -125,7 +125,7 @@ export default class AddCuisineForm extends React.Component {
         .then((response) => response.json())
         .then((data) => {
 
-          console.log('Data  : ' + data.receipes);
+          consoleLog('Data  : ' + data.receipes);
         });
 
       alert('Thankyou for Submitting. Lookout for this cuisine in Dashboard soon!!!');
@@ -142,7 +142,7 @@ export default class AddCuisineForm extends React.Component {
   render() {
 
     let dataContent = (<div></div>);
-    console.log('State=> ', this.state);
+    consoleLog('State=> ', this.state);
     if (!this.state.facebook.loggedIn) {
 
       dataContent = (
