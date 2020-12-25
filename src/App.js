@@ -16,9 +16,9 @@ function App() {
       <div >
         <Title/>
         <Route exact path="/" component={Dashboard} />
-        <Route exact path="/home" component={Dashboard} />
-        <Route exact path="/addCuisine" component={AddCuisine}/>
-        <Route exact path="/tnc" component={PrivacyPolicy} />
+        <Route path="/home" component={Dashboard} />
+        <Route path="/addCuisine" component={AddCuisine}/>
+        <Route path="/tnc" component={PrivacyPolicy} />
         <Footer />
       </div>
     </BrowserRouter>
