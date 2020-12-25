@@ -129,7 +129,7 @@ export default class AddCuisineForm extends React.Component {
         });
 
       alert('Thankyou for Submitting. Lookout for this cuisine in Dashboard soon!!!');
-      window.location='/home'; 
+      window.location='/'; 
     } else {
       this.validator.showMessages();
       // rerender to show messages for the first time
