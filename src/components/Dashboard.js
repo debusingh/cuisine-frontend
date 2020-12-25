@@ -4,6 +4,7 @@ import { CardDeck, Container } from 'react-bootstrap';
 import '../components-css/Dashboard.css';
 import FoodListing from './FoodListing';
 //import Switch from './components/Switch'
+import { commonConstants } from '../components-constants/React-Common-Constants';
 
 import SearchBar from './SearchBar';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,7 +19,7 @@ function Dashboard() {
 
   var filterChangedCallback = (filterData) => {
 
-    console.log('In Callback Method with data : ', filterData);
+    commonConstants.consoleLog('In Callback Method with data : ', filterData);
     setFilterCriteria(filterData);
   };
 

@@ -10,7 +10,7 @@ import { commonConstants } from '../components-constants/React-Common-Constants'
 
 function FoodListing(props) {
 
-  console.log('In FoodListing Method');
+  commonConstants.consoleLog('In FoodListing Method');
 
   const [dishes, setDishes] = useState({
     receipes: []
@@ -22,7 +22,7 @@ function FoodListing(props) {
     receipes: []
   });
 
-  console.log('Request Options : ', JSON.stringify(props));
+  commonConstants.consoleLog('Request Options : ', JSON.stringify(props));
 
   let filterCriteria = {};
   var allPropertyNames = Object.keys(props.filter);
@@ -49,7 +49,7 @@ function FoodListing(props) {
 
     let jsonString = JSON.stringify({ filter: { filterCriteria } });
 
-    console.log('Parameters to be Passed : ', jsonString);
+    commonConstants.consoleLog('Parameters to be Passed : ', jsonString);
 
 
     const requestOptions = {
@@ -63,7 +63,7 @@ function FoodListing(props) {
       .then((response) => response.json())
       .then((data) => {
 
-        console.log('Data  : ' + data.receipes);
+        commonConstants.consoleLog('Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
       });
   }, [filter, props]);
@@ -82,11 +82,11 @@ function FoodListing(props) {
 
   const handlePageClick = ({ selected: selectedPage }) => {
 
-    console.log("==> Current Page: ", selectedPage);
+    commonConstants.consoleLog("==> Current Page: ", selectedPage);
     setPageNumber(selectedPage + 1);
   };
 
-  console.log('Receipes Length : ' + dishes.receipes);
+  commonConstants.consoleLog('Receipes Length : ' + dishes.receipes);
 
   if (dishesToDisplay.length == 0) {
 
@@ -160,7 +160,7 @@ function FoodListing(props) {
 
   } catch (error) {
 
-    console.log(error);
+    commonConstants.consoleLog(error);
 
     return (<h1>Error Occurred!!!</h1>)
   }

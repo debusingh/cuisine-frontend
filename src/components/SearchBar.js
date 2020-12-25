@@ -11,7 +11,7 @@ import { commonConstants } from '../components-constants/React-Common-Constants'
 
 function addDataToFilter(filter, filterDataSet) {
 
-  console.log('Adding Data to Filter...');
+  commonConstants.consoleLog('Adding Data to Filter...');
   filterDataSet.map((filterData) => {
 
     filter.push({ "value": filterData, "label": filterData });
@@ -78,7 +78,7 @@ function SearchBar(props) {
 
   try {
 
-    console.log('Data For Type :: ', JSON.stringify(foodTypeState));
+    commonConstants.consoleLog('Data For Type :: ', JSON.stringify(foodTypeState));
 
     return (
       <Container fluid>
@@ -139,7 +139,7 @@ function SearchBar(props) {
 
   } catch (error) {
 
-    console.log(error);
+    commonConstants.consoleLog(error);
 
     return (<h1>Error Occurred!!!</h1>)
   }
