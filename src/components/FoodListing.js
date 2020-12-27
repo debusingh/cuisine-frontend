@@ -92,10 +92,8 @@ function FoodListing(props) {
 
   commonConstants.consoleLog('Receipes Length : ' + dishes.receipes);
 
-
   if (!dataLoaded) {
 
-    console.log('Showing Loader////// ');
     return <Loader />;
   }
 
