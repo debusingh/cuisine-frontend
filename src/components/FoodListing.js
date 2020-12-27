@@ -69,7 +69,8 @@ function FoodListing(props) {
         setDataLoaded(true);
         commonConstants.consoleLog('Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
-      }).catch((ex)=>{ setDataLoaded(true);
+      }).catch((ex) => {
+        setDataLoaded(true);
       });
   }, [filter, props]);
 
@@ -112,6 +113,7 @@ function FoodListing(props) {
 
   try {
 
+
     return (
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <CardDeck className="row" style={{ display: 'flex', flexDirection: 'row', padding: '10px' }}>
@@ -130,15 +132,16 @@ function FoodListing(props) {
             return (
 
               <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-
-                <Card bg="success" text="white" style={{ width: '100%' }} class="mx-auto">
+                {console.log('Receipe Vegeterian?? ', receipe.Vegeterian ? 'Success' : 'Danger')}
+                <Card bg={receipe.Vegeterian ? 'success' : 'danger'} text="white" style={{ width: '100%' }} class="mx-auto">
                   <YouTube opts={opts} videoId={receipe.videoLink}
                     controls />
 
                   <Card.Body>
                     <Card.Title>{receipe.Name}</Card.Title>
                     <Card.Text>
-                      {receipe.Region}
+                    {receipe.Type} {' from '} {receipe.Region}
+                      
                     </Card.Text>
                   </Card.Body>
                 </Card>
