@@ -121,7 +121,7 @@ function SearchBar(props) {
               options={foodTypeState}
               styles={foodTypeSelectCustomStyles}
               isDisabled={foodTypeState.length === 0}
-              placeholder='Meals or Non-Meals?'
+              placeholder='Soup Or Snack Or...?'
               isSearchable={false}
               onChange={selectedOption => {
                 let newFilter = { ...filter };
