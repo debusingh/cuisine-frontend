@@ -88,6 +88,8 @@ function FoodListing(props) {
 
     commonConstants.consoleLog("==> Current Page: ", selectedPage);
     setPageNumber(selectedPage + 1);
+    window.scrollTo(0, 0)
+
   };
 
   commonConstants.consoleLog('Receipes Length : ' + dishes.receipes);
@@ -100,7 +102,7 @@ function FoodListing(props) {
   if (dataLoaded && dishesToDisplay.length == 0) {
 
     return (
-      <div style={{ padding: '70px 0', textAlign: 'center'}}>
+      <div style={{ padding: '70px 0', textAlign: 'center' }}>
 
         <h4 style={{ color: 'red' }}>No Cuisines yet matching your criteria...</h4>;
       </div>
@@ -109,64 +111,65 @@ function FoodListing(props) {
 
   try {
 
-    return (<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-      <CardDeck className="row" style={{ display: 'flex', flexDirection: 'row', padding: '10px' }}>
-        {dishesToDisplay.map((receipe) => {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <CardDeck className="row" style={{ display: 'flex', flexDirection: 'row', padding: '10px' }}>
+          {dishesToDisplay.map((receipe) => {
 
-          //16:9 width:height ratio
-          const opts = {
-            height: '100%',
-            width: '100%',
-            playerVars: {
-              // https://developers.google.com/youtube/player_parameters
-              autoplay: 0,
-            },
-          };
+            //16:9 width:height ratio
+            const opts = {
+              height: '100%',
+              width: '100%',
+              playerVars: {
+                // https://developers.google.com/youtube/player_parameters
+                autoplay: 0,
+              },
+            };
 
-          return (
+            return (
 
-            <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+              <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
 
-              <Card bg="success" text="white" style={{ width: '100%' }} class="mx-auto">
-                <YouTube opts={opts} videoId={receipe.videoLink}
-                  controls />
+                <Card bg="success" text="white" style={{ width: '100%' }} class="mx-auto">
+                  <YouTube opts={opts} videoId={receipe.videoLink}
+                    controls />
 
-                <Card.Body>
-                  <Card.Title>{receipe.Name}</Card.Title>
-                  <Card.Text>
-                    {receipe.Region}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+                  <Card.Body>
+                    <Card.Title>{receipe.Name}</Card.Title>
+                    <Card.Text>
+                      {receipe.Region}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
 
-            </div>
+              </div>
+            )
+          }
           )
-        }
-        )
-        }
+          }
 
 
 
-      </CardDeck>
+        </CardDeck>
 
-      <div
-        className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
-        style={{ display: pageCount > 1 ? '' : 'none' }}>
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          marginPagesDisplayed={3}
-          selectedPage={pageNumber}
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          previousLinkClassName={"pagination__link"}
-          nextLinkClassName={"pagination__link"}
-          disabledClassName={"pagination__link--disabled"}
-          activeClassName={"pagination__link--active"} />
+        <div
+          className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto"
+          style={{ display: pageCount > 1 ? '' : 'none' }}>
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            marginPagesDisplayed={3}
+            selectedPage={pageNumber}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            previousLinkClassName={"pagination__link"}
+            nextLinkClassName={"pagination__link"}
+            disabledClassName={"pagination__link--disabled"}
+            activeClassName={"pagination__link--active"} />
 
+        </div>
       </div>
-    </div>
     );
 
 
