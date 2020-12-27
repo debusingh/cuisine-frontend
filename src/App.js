@@ -16,10 +16,8 @@ function App() {
     <BrowserRouter>
       <div >
         <Title />
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/home/:Region?" component={Dashboard} />
+        
+        <Route exact path="/" component={Dashboard} />
         <Route exact path="/addCuisine" component={AddCuisine}>
         </Route>
         <Route exact path="/tnc" component={PrivacyPolicy} />

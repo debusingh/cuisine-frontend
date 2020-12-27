@@ -37,7 +37,7 @@ export default class Title extends React.Component {
                         <Navbar.Collapse id="basic-navbar-nav">*/}
                     <Nav className="mr-auto" navbar>
 
-                        <NavLink className="nav-link row-12" to="/home">
+                        <NavLink className="nav-link row-12" to="/">
                             <span className="fa fa-home fa-lg"></span>Home
                                 </NavLink>
                        <NavLink className="nav-link row-12" to="/addCuisine">
