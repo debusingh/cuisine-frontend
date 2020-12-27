@@ -12,12 +12,14 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 function App() {
 
   return (
+    
     <BrowserRouter>
       <div >
         <Title/>
         <Route exact path="/" component={Dashboard} />
         <Route path="/home" component={Dashboard} />
-        <Route path="/addCuisine" component={AddCuisine}/>
+        <Route path="/addCuisine" component={AddCuisine}>
+          </Route>
         <Route path="/tnc" component={PrivacyPolicy} />
         <Footer />
       </div>

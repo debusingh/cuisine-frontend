@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardDeck } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import ReactPaginate from "react-paginate";
-
+import Loader from './Loader'
 import '../components-css/FoodListing.css';
 import { commonConstants } from '../components-constants/React-Common-Constants';
 
@@ -17,6 +17,7 @@ function FoodListing(props) {
   });
 
   const [pageNumber, setPageNumber] = useState(1);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [filter, setFilter] = useState({
     receipes: []
@@ -59,10 +60,13 @@ function FoodListing(props) {
     };
 
 
+    setDataLoaded(false);
+
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
+        setDataLoaded(true);
         commonConstants.consoleLog('Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
       });
@@ -88,9 +92,21 @@ function FoodListing(props) {
 
   commonConstants.consoleLog('Receipes Length : ' + dishes.receipes);
 
-  if (dishesToDisplay.length == 0) {
 
-    return <h1>No Cuisine found Matching your Criteria.</h1>;
+  if (!dataLoaded) {
+
+    console.log('Showing Loader////// ');
+    return <Loader />;
+  }
+
+  if (dataLoaded && dishesToDisplay.length == 0) {
+
+    return (
+      <div style={{ padding: '70px 0', textAlign: 'center'}}>
+
+        <h4 style={{ color: 'red' }}>No Cuisines yet matching your criteria...</h4>;
+      </div>
+    );
   }
 
   try {
