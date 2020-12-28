@@ -1,8 +1,7 @@
 export const commonConstants = {
 
-    apiUrl: 'http://localhost:5000/',
-    //apiUrl : '/',
-
+    //apiUrl: (process.env.NODE_ENV !== "development") ? 'http://localhost:5000/': '/',
+    apiUrl: '/',
 
     vegNonVegOptions: [
         { value: true, label: 'Yes (Its Veg)' },
