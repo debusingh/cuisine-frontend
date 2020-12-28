@@ -10,41 +10,64 @@ import SearchBar from './SearchBar';
 import { BrowserRouter } from 'react-router-dom';
 import AddCuisine from './AddCuisine';
 import { useParams } from 'react-router-dom';
+//import querySearch from "stringquery";
 
 
 
 
-function Dashboard() {
+export default class Dashboard extends React.Component {
 
-  const [filterCriteria, setFilterCriteria] = React.useState({});
+  constructor(props) {
+    super(props);
 
-  var filterChangedCallback = (filterData) => {
+    //this.validator = new SimpleReactValidator();
 
-    commonConstants.consoleLog('In Callback Method with data : ', filterData);
-    setFilterCriteria(filterData);
-  };
-
-  // retrieve params into a variable
-  const params = useParams();
-
-  console.log("filterCriteria : " + (filterCriteria === undefined));
-
-  if ((filterCriteria === undefined || Object.keys(filterCriteria).length == 0)
-    && (params.Region != undefined && params.Region.length > 0)) {
-
-    setFilterCriteria(params);
+    this.state = {
+      filterCriteria: {}
+    };
 
   }
+  //const [filterCriteria, setFilterCriteria] = React.useState({});
 
-  // display params on a web page
-  console.log(JSON.stringify(params));
+  filterChangedCallback = (filterData) => {
 
-  return (
-    <Container fluid>
-      <SearchBar onFilterChanged={filterChangedCallback} />
-      <FoodListing filter={filterCriteria} />
-    </Container>
-  );
+    commonConstants.consoleLog('In Callback Method with data : ', filterData);
+    this.setState({ filterCriteria: filterData });
+    //setFilterCriteria(filterData);
+  }
+
+  // retrieve params into a variable
+  //const params = useParams();
+
+
+  componentDidMount() {
+    console.log("===+> Query Params: ", this.props.location.search); // "?filter=top&origin=im"
+
+
+    var params = commonConstants.parseQueryString(this.props.location.search);
+
+    console.log("filterCriteria : " + (this.state.filterCriteria === undefined));
+
+   // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)
+    //  && (params.Region != undefined && params.Region.length > 0)) {
+
+      this.setState({ filterCriteria: params });
+
+
+    //  }
+  }
+
+
+
+  render() {
+
+    return (
+      <Container fluid>
+        <SearchBar onFilterChanged={this.filterChangedCallback} />
+        <FoodListing filter={this.state.filterCriteria} />
+      </Container>
+    );
+  }
 }
 
-export default Dashboard;
+//export default Dashboard;

@@ -21,6 +21,7 @@
     "react-youtube": "^7.13.0",
     "reactstrap": "^8.7.1",
     "simple-react-validator": "^1.6.0",
+    "stringquery": "^1.0.8",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
