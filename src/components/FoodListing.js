@@ -7,6 +7,8 @@ import Loader from './Loader'
 import '../components-css/FoodListing.css';
 import { commonConstants } from '../components-constants/React-Common-Constants';
 
+
+var queryParamDisplayed = false;
 function FoodListing(props) {
 
   commonConstants.consoleLog('In FoodListing Method');
@@ -17,7 +19,6 @@ function FoodListing(props) {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [queryParamDisplayed, setQueryParamDisplayed] = useState(false);
 
   const [filter, setFilter] = useState({
     receipes: []
@@ -75,8 +76,8 @@ function FoodListing(props) {
         setDataLoaded(true);
 
         if (Object.keys(filterCriteria).length > 0) {
-          
-          setQueryParamDisplayed(true);
+
+          queryParamDisplayed = true;
         }
 
         commonConstants.consoleLog('Data  : ' + data.receipes);
