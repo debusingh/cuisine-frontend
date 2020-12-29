@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 //import querySearch from "stringquery";
 
 
-
+var params={};
 export default class Dashboard extends React.Component {
 
   constructor(props) {
@@ -42,7 +42,7 @@ export default class Dashboard extends React.Component {
   componentDidMount() {
 
 
-    var params = commonConstants.parseQueryString(this.props.location.search);
+     params = commonConstants.parseQueryString(this.props.location.search);
 
 
    // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)

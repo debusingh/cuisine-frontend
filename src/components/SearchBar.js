@@ -53,6 +53,8 @@ function SearchBar(props) {
 
   const [foodTypeState, setFoodTypeState] = useState(foodTypeOptions);
   const [regionState, setRegionState] = useState(regionOptions);
+  const [initialParam, setInitialParam] = useState(true);
+
 
   const [filter, setFilter] = useState({});
   const vegNonVegOptions = [
@@ -66,7 +68,16 @@ function SearchBar(props) {
   useEffect(() => {
 
     loadFilterData("Type", foodTypeOptions).then((foodType) => setFoodTypeState(foodType));
-    loadFilterData("Region", regionOptions).then((regions) => setRegionState(regions));
+    loadFilterData("Region", regionOptions).then((regions) => setRegionState(regions)).then(() => {
+
+      if (initialParam && props.Region != undefined) {
+        let newFilter = { ...filter };
+        newFilter.Region = props.parentFilter.Region;
+        setFilter(newFilter);
+        props.onFilterChanged(newFilter);
+        setInitialParam(false);
+      }
+    });
 
   }, []);
 
@@ -77,8 +88,6 @@ function SearchBar(props) {
   };
 
   try {
-
-    commonConstants.consoleLog('Data For Type :: ', JSON.stringify(foodTypeState));
 
     return (
       <Container fluid>
