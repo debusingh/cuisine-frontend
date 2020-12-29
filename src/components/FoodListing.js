@@ -8,7 +8,6 @@ import '../components-css/FoodListing.css';
 import { commonConstants } from '../components-constants/React-Common-Constants';
 
 
-var queryParamDisplayed = false;
 function FoodListing(props) {
 
   commonConstants.consoleLog('In FoodListing Method');
@@ -41,8 +40,8 @@ function FoodListing(props) {
 
   }
 
-  console.log('+++ queryParamDisplayed ' + queryParamDisplayed);
-  if (Object.keys(filterCriteria).length == 0 && !queryParamDisplayed) {
+  commonConstants.consoleLog("+++ props.parentFilter : " + props.parentFilter);
+  if (Object.keys(props.parentFilter).length > 0 ) {
 
     filterCriteria = props.parentFilter;
   }
@@ -75,14 +74,11 @@ function FoodListing(props) {
 
         setDataLoaded(true);
 
-        if (Object.keys(filterCriteria).length > 0) {
-
-          queryParamDisplayed = true;
-        }
-
-        commonConstants.consoleLog('Data  : ' + data.receipes);
+        commonConstants.consoleLog('+++ Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
       }).catch((ex) => {
+
+        commonConstants.consoleLog('+++ Error : ' + ex);
         setDataLoaded(true);
       });
   }, [filter, props]);

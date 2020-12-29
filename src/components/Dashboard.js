@@ -36,7 +36,13 @@ export default class Dashboard extends React.Component {
 
       this.setState({ filterCriteria: filterData });
     }
+
+    //Remove the Params (i.e. any Query Parameter - whenever User clicks on any Filter// Otherwise Query Parameters will take Precedence)
+    params={};
+
   }
+
+
 
   // retrieve params into a variable
   //const params = useParams();
@@ -64,7 +70,7 @@ export default class Dashboard extends React.Component {
     return (
       <Container fluid>
         <SearchBar parentFilter={params} onFilterChanged={this.filterChangedCallback} />
-        <FoodListing parentFilter={params} filter={this.state.filterCriteria} />
+        <FoodListing parentFilter={params} filter={this.state.filterCriteria}/>
       </Container>
     );
   }
