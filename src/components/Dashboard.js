@@ -14,7 +14,6 @@ import { useParams } from 'react-router-dom';
 
 
 
-
 export default class Dashboard extends React.Component {
 
   constructor(props) {
@@ -41,12 +40,10 @@ export default class Dashboard extends React.Component {
 
 
   componentDidMount() {
-    console.log("===+> Query Params: ", this.props.location.search); // "?filter=top&origin=im"
 
 
     var params = commonConstants.parseQueryString(this.props.location.search);
 
-    console.log("filterCriteria : " + (this.state.filterCriteria === undefined));
 
    // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)
     //  && (params.Region != undefined && params.Region.length > 0)) {
@@ -63,7 +60,7 @@ export default class Dashboard extends React.Component {
 
     return (
       <Container fluid>
-        <SearchBar onFilterChanged={this.filterChangedCallback} />
+        <SearchBar parentFilter={params} onFilterChanged={this.filterChangedCallback} />
         <FoodListing filter={this.state.filterCriteria} />
       </Container>
     );
