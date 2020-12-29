@@ -17,7 +17,7 @@ function FoodListing(props) {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [queryParamDisplayed, setQueryParamDisplayed] = useState (false);
+  const [queryParamDisplayed, setQueryParamDisplayed] = useState(false);
 
   const [filter, setFilter] = useState({
     receipes: []
@@ -41,7 +41,7 @@ function FoodListing(props) {
   }
 
   console.log('+++ queryParamDisplayed ' + queryParamDisplayed);
-  if (Object.keys(filterCriteria).length==0 && !queryParamDisplayed) {
+  if (Object.keys(filterCriteria).length == 0 && !queryParamDisplayed) {
 
     filterCriteria = props.parentFilter;
   }
@@ -55,9 +55,6 @@ function FoodListing(props) {
     const apiUrl = commonConstants.apiUrl + 'dishes/';
 
     let jsonString = JSON.stringify({ filter: { filterCriteria } });
-
-    commonConstants.consoleLog('+++ Parameters to be Passed : ', jsonString);
-
 
     const requestOptions = {
       method: 'POST',
@@ -73,8 +70,14 @@ function FoodListing(props) {
       .then((response) => response.json())
       .then((data) => {
 
+        commonConstants.consoleLog('+++ Parameters to be Passed : ' + jsonString);
+
         setDataLoaded(true);
-        setQueryParamDisplayed(true);
+
+        if (Object.keys(filterCriteria).length > 0) {
+          
+          setQueryParamDisplayed(true);
+        }
 
         commonConstants.consoleLog('Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
