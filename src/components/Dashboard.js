@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 //import querySearch from "stringquery";
 
 
-var params={};
+var params = {};
 export default class Dashboard extends React.Component {
 
   constructor(props) {
@@ -31,7 +31,11 @@ export default class Dashboard extends React.Component {
   filterChangedCallback = (filterData) => {
 
     commonConstants.consoleLog('In Callback Method with data : ', filterData);
-    this.setState({ filterCriteria: filterData });
+
+    if (filterData != undefined || Object.keys(filterData).length > 0) {
+
+      this.setState({ filterCriteria: filterData });
+    }
     //setFilterCriteria(filterData);
   }
 
@@ -42,13 +46,13 @@ export default class Dashboard extends React.Component {
   componentDidMount() {
 
 
-     params = commonConstants.parseQueryString(this.props.location.search);
+    params = commonConstants.parseQueryString(this.props.location.search);
 
 
-   // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)
+    // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)
     //  && (params.Region != undefined && params.Region.length > 0)) {
 
-      this.setState({ filterCriteria: params });
+    this.setState({ filterCriteria: params });
 
 
     //  }

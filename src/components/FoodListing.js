@@ -140,8 +140,8 @@ function FoodListing(props) {
                   <Card.Body>
                     <Card.Title>{receipe.Name}</Card.Title>
                     <Card.Text>
-                    {receipe.Type} {' from '} {receipe.Region}
-                      
+                      {receipe.Type} {' from '} {receipe.Region}
+
                     </Card.Text>
                   </Card.Body>
                 </Card>
