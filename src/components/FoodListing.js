@@ -40,7 +40,7 @@ function FoodListing(props) {
 
   }
 
-  commonConstants.consoleLog("+++ props.parentFilter : " + props.parentFilter);
+  console.log("+++ props.parentFilter : " + props.parentFilter);
   if (Object.keys(props.parentFilter).length > 0 ) {
 
     filterCriteria = props.parentFilter;
