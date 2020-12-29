@@ -36,7 +36,6 @@ export default class Dashboard extends React.Component {
 
       this.setState({ filterCriteria: filterData });
     }
-    //setFilterCriteria(filterData);
   }
 
   // retrieve params into a variable
@@ -52,7 +51,7 @@ export default class Dashboard extends React.Component {
     // if ((this.state.filterCriteria === undefined || Object.keys(this.state.filterCriteria).length == 0)
     //  && (params.Region != undefined && params.Region.length > 0)) {
 
-    this.setState({ filterCriteria: params });
+    this.setState({ filterCriteria: {} });
 
 
     //  }
@@ -65,7 +64,7 @@ export default class Dashboard extends React.Component {
     return (
       <Container fluid>
         <SearchBar parentFilter={params} onFilterChanged={this.filterChangedCallback} />
-        <FoodListing filter={this.state.filterCriteria} />
+        <FoodListing parentFilter={params} filter={this.state.filterCriteria} />
       </Container>
     );
   }

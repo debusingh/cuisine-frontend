@@ -7,7 +7,6 @@ import Loader from './Loader'
 import '../components-css/FoodListing.css';
 import { commonConstants } from '../components-constants/React-Common-Constants';
 
-
 function FoodListing(props) {
 
   commonConstants.consoleLog('In FoodListing Method');
@@ -18,6 +17,7 @@ function FoodListing(props) {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [queryParamDisplayed, setQueryParamDisplayed] = useState (false);
 
   const [filter, setFilter] = useState({
     receipes: []
@@ -40,6 +40,12 @@ function FoodListing(props) {
 
   }
 
+  console.log('+++ queryParamDisplayed ' + queryParamDisplayed);
+  if (Object.keys(filterCriteria).length==0 && !queryParamDisplayed) {
+
+    filterCriteria = props.parentFilter;
+  }
+
 
   //Call the use effect hook
   useEffect(() => {
@@ -50,7 +56,7 @@ function FoodListing(props) {
 
     let jsonString = JSON.stringify({ filter: { filterCriteria } });
 
-    commonConstants.consoleLog('Parameters to be Passed : ', jsonString);
+    commonConstants.consoleLog('+++ Parameters to be Passed : ', jsonString);
 
 
     const requestOptions = {
@@ -62,11 +68,14 @@ function FoodListing(props) {
 
     setDataLoaded(false);
 
+
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
         setDataLoaded(true);
+        setQueryParamDisplayed(true);
+
         commonConstants.consoleLog('Data  : ' + data.receipes);
         setDishes({ receipes: data.receipes });
       }).catch((ex) => {
