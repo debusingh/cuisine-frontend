@@ -40,7 +40,7 @@ function FoodListing(props) {
 
   }
 
-  console.log("+++ props.parentFilter : " + props.parentFilter);
+  console.log("+++ props.parentFilter : " + JSON.stringify(props.parentFilter));
   if (Object.keys(props.parentFilter).length > 0 ) {
 
     filterCriteria = props.parentFilter;
@@ -65,6 +65,7 @@ function FoodListing(props) {
 
     setDataLoaded(false);
 
+    console.log("+++ Loading Data for : " + jsonString);
 
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
@@ -141,7 +142,6 @@ function FoodListing(props) {
             return (
 
               <div key={receipe._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 mx-auto" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-                {console.log('Receipe Vegeterian?? ', receipe.Vegeterian ? 'Success' : 'Danger')}
                 <Card bg={receipe.Vegeterian ? 'success' : 'danger'} text="white" style={{ width: '100%' }} class="mx-auto">
                   <YouTube opts={opts} videoId={receipe.videoLink}
                     controls />
