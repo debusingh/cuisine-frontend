@@ -79,7 +79,7 @@ function FoodListing(props) {
         setDishes({ receipes: data.receipes });
       }).catch((ex) => {
 
-        commonConstants.consoleLog('+++ Error : ' + ex);
+        console.log('+++ Error : ' + ex);
         setDataLoaded(true);
       });
   }, [filter, props]);
