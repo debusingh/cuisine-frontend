@@ -69,7 +69,7 @@ function FoodListing(props) {
       .then((response) => response.json())
       .then((data) => {
 
-        console.log('+++ Parameters to be Passed : ' + filterCriteria);
+        console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
 
         setDataLoaded(true);
 
