@@ -65,12 +65,12 @@ function FoodListing(props) {
     console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
     console.log('+++ dataLoaded: ' + dataLoaded);
 
-    if (!dataLoaded) {
+    if (dataLoaded) {
+      console.log('+++ Calling Fetch with : ' + JSON.stringify(filterCriteria));
+
       fetch(apiUrl, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-
-          console.log("+++ props.parentFilter (Inside Fetch) : " + JSON.stringify(props.parentFilter));
 
           console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
 
