@@ -30,8 +30,6 @@ export default class Dashboard extends React.Component {
 
   filterChangedCallback = (filterData) => {
 
-    console.log('In Callback Method with data : ', filterData);
-
     if (filterData != undefined || Object.keys(filterData).length > 0) {
 
       this.setState({ filterCriteria: filterData });

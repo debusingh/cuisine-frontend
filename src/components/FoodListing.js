@@ -47,7 +47,6 @@ function FoodListing(props) {
 
     setPageNumber(1);
 
-    console.log("+++ props.parentFilter : " + JSON.stringify(props.parentFilter));
     if (Object.keys(props.parentFilter).length > 0) {
 
       filterCriteria = props.parentFilter;
@@ -63,11 +62,8 @@ function FoodListing(props) {
       body: jsonString
     };
 
-    console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
-    console.log('+++ dataLoaded: ' + dataLoaded);
-
+    
     if (initLoad) {
-      console.log('+++ Calling Fetch with : ' + JSON.stringify(filterCriteria));
 
       setDataLoaded(false);
       fetch(apiUrl, requestOptions)
@@ -75,18 +71,10 @@ function FoodListing(props) {
         .then((data) => {
 
           setDataLoaded(true);
-
-          console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
-
-
-          console.log('+++ Data  : ' + data.receipes);
           setDishes({ receipes: data.receipes });
-
-
         }).catch((ex) => {
 
           setDataLoaded(false);
-          console.log('+++ Error : ' + ex);
         });
     }
     setInitLoad(true);
