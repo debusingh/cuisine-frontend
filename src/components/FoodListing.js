@@ -65,13 +65,11 @@ function FoodListing(props) {
 
     setDataLoaded(false);
 
-    console.log("+++ Loading Data for : " + jsonString);
-
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((data) => {
 
-        commonConstants.consoleLog('+++ Parameters to be Passed : ' + jsonString);
+        console.log('+++ Parameters to be Passed : ' + filterCriteria);
 
         setDataLoaded(true);
 
