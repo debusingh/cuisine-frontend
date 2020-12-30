@@ -1,7 +1,10 @@
+const validQueryParamHeaders=["Region"];
+
 export const commonConstants = {
 
     apiUrl: (process.env.NODE_ENV === "development") ? 'http://localhost:5000/': '/',
     //apiUrl: '/',
+
 
     vegNonVegOptions: [
         { value: true, label: 'Yes (Its Veg)' },
@@ -33,6 +36,7 @@ export const commonConstants = {
     },
 
     parseQueryString : (string) => {
+
         return string.slice(1).split("&")
         .map((queryParam) => {
           let kvp = queryParam.split("=")
@@ -40,7 +44,11 @@ export const commonConstants = {
           return { key: kvp[0], value: kvp[1] }
         })
         .reduce((query, kvp) => {
-          query[kvp.key] = kvp.value
+
+          if (validQueryParamHeaders.includes(kvp.key)) {
+
+            query[kvp.key] = kvp.value;
+          }
           return query
         }, {})
       }
