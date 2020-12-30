@@ -18,6 +18,7 @@ function FoodListing(props) {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [initLoad, setInitLoad] = useState(false);
 
   const [filter, setFilter] = useState({
     receipes: []
@@ -65,12 +66,15 @@ function FoodListing(props) {
     console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
     console.log('+++ dataLoaded: ' + dataLoaded);
 
-    if (dataLoaded) {
+    if (initLoad) {
       console.log('+++ Calling Fetch with : ' + JSON.stringify(filterCriteria));
 
+      setDataLoaded(false);
       fetch(apiUrl, requestOptions)
         .then((response) => response.json())
         .then((data) => {
+
+          setDataLoaded(true);
 
           console.log('+++ Parameters to be Passed : ' + JSON.stringify(filterCriteria));
 
@@ -81,10 +85,11 @@ function FoodListing(props) {
 
         }).catch((ex) => {
 
+          setDataLoaded(false);
           console.log('+++ Error : ' + ex);
         });
     }
-    setDataLoaded(true);
+    setInitLoad(true);
 
   }, [filter, props]);
 
