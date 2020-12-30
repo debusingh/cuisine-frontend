@@ -40,17 +40,17 @@ function FoodListing(props) {
 
   }
 
-  console.log("+++ props.parentFilter : " + JSON.stringify(props.parentFilter));
-  if (Object.keys(props.parentFilter).length > 0 ) {
-
-    filterCriteria = props.parentFilter;
-  }
-
 
   //Call the use effect hook
   useEffect(() => {
 
     setPageNumber(1);
+
+    console.log("+++ props.parentFilter : " + JSON.stringify(props.parentFilter));
+    if (Object.keys(props.parentFilter).length > 0 ) {
+  
+      filterCriteria = props.parentFilter;
+    }
 
     const apiUrl = commonConstants.apiUrl + 'dishes/';
 
