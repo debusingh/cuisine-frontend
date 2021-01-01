@@ -1,4 +1,4 @@
-const validQueryParamHeaders=["Region"];
+const validQueryParamHeaders=["Region","Name","Type"];
 
 export const commonConstants = {
 
