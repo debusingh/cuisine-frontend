@@ -47,7 +47,7 @@ export const commonConstants = {
 
           if (validQueryParamHeaders.includes(kvp.key)) {
 
-            query[kvp.key] = kvp.value;
+            query[kvp.key] = decodeURIComponent(kvp.value);
           }
           return query
         }, {})

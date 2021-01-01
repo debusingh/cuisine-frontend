@@ -15,8 +15,6 @@ class App extends Component {
 
   componentDidMount() {
 
-    console.log("+++ Component is Loaded...")
-
     this.setState({ loading: false });
   }
 

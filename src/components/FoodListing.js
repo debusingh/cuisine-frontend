@@ -24,7 +24,7 @@ function FoodListing(props) {
     receipes: []
   });
 
-  commonConstants.consoleLog('Request Options : ', JSON.stringify(props));
+  commonConstants.consoleLog('*** Request Options : ' + JSON.stringify(props));
 
   let filterCriteria = {};
   var allPropertyNames = Object.keys(props.filter);
